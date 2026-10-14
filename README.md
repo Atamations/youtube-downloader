@@ -4,12 +4,25 @@
 
 Flask tabanlı web arayüzü + masaüstü (PyInstaller) paketi. Motor: `yt-dlp` + FFmpeg.
 
+**Sürüm:** 1.1
+
 ## Özellikler
 
 - URL analizi (başlık, süre, kalite listesi)
 - Zaman aralığı ile kesim / dışa aktarma
 - YouTube, TikTok, Instagram, X/Twitter ve diğer desteklenen hostlar
+- Frameless masaüstü penceresi (özel başlık çubuğu)
+- Sağ tık ile panodaki HTTP/HTTPS bağlantısını URL alanına yapıştırma
+- Kenar / köşe tutamaçlarıyla pencere boyutlandırma
+- Gizli easter egg: **Arkanoid** (↑ ile açılır)
 - Masaüstü exe veya kaynak koddan çalıştırma
+
+## 1.1 değişiklikleri
+
+- URL alanına sağ tıklayınca panodaki geçerli bağlantı otomatik yerleşir
+- Frameless pencerede 8 kenar/köşeden yeniden boyutlandırma
+- Gizli oyun dino-koşudan Arkanoid’e geçti (fare / ok tuşları, 3 can, seviye)
+- Yumuşak ışık geçişli koyu tema; sürüm rozeti **1.1**
 
 ## Gereksinimler
 
@@ -39,7 +52,7 @@ python app.py
 
 Tarayıcıda genelde `http://127.0.0.1:5000` açılır.
 
-Masaüstü sarmalayıcı (varsa):
+Masaüstü sarmalayıcı:
 
 ```bash
 python desktop_app.py
@@ -62,7 +75,7 @@ docker run --rm -p 5000:5000 atamation-downloader
 
 ## Kullanım
 
-1. Desteklenen bir platform URL’si yapıştırın
+1. Desteklenen bir platform URL’si yapıştırın (veya URL alanına sağ tıklayın)
 2. Analiz edin → kalite / süre bilgisi gelir
 3. İsterseniz başlangıç–bitiş aralığı seçin
 4. Dışa aktarın (MP4 / desteklenen formatlar)
@@ -75,4 +88,4 @@ docker run --rm -p 5000:5000 atamation-downloader
 
 ## Lisans
 
-© Atamation — kişisel / portföy kullanımı. Ayrıntılar için `LICENSE.txt`.
+© 2026 Atamation — kişisel / portföy kullanımı. Ayrıntılar için `LICENSE.txt`.

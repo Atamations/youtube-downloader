@@ -1,5 +1,5 @@
 /**
- * Timeline Runner easter egg: koyu stüdyo temasına gömülü overlay.
+ * Arkanoid easter egg: koyu stüdyo temasına gömülü overlay.
  */
 #runner-overlay {
   position: fixed;
@@ -114,3 +114,8 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
+.runner-shell { width: min(920px, 100%, calc((100vh - 205px) * 2.095)); }
+#runner-overlay { overflow: auto; }
+#runner-canvas { aspect-ratio: 880 / 420; touch-action: none; outline: none; }
+.runner-hint { text-align: center; line-height: 1.8; letter-spacing: .045em; font-size: 10px; }

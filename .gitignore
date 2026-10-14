@@ -12,6 +12,8 @@ build/
 dist/
 *.exe
 *.spec.bak
+*.lnk
+_extract_1.1/
 
 # Vendor / bundled tools (keep local if present)
 vendor/

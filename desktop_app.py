@@ -87,6 +87,87 @@ class DesktopApi:
             return
         self._window.destroy()
 
+    def get_clipboard_text(self) -> str:
+        """Windows panosundaki Unicode metni döndürür (1.1 sağ tık yapıştırma)."""
+        if os.name != "nt":
+            return ""
+        import ctypes
+        from ctypes import wintypes
+
+        user = ctypes.WinDLL("user32", use_last_error=True)
+        kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+        user.OpenClipboard.argtypes = [wintypes.HWND]
+        user.OpenClipboard.restype = wintypes.BOOL
+        user.GetClipboardData.argtypes = [wintypes.UINT]
+        user.GetClipboardData.restype = wintypes.HANDLE
+        kernel.GlobalLock.argtypes = [wintypes.HGLOBAL]
+        kernel.GlobalLock.restype = ctypes.c_void_p
+        kernel.GlobalUnlock.argtypes = [wintypes.HGLOBAL]
+
+        for _ in range(5):
+            if not user.OpenClipboard(None):
+                time.sleep(0.025)
+                continue
+            try:
+                handle = user.GetClipboardData(13)  # CF_UNICODETEXT
+                if not handle:
+                    return ""
+                pointer = kernel.GlobalLock(handle)
+                if not pointer:
+                    return ""
+                try:
+                    return ctypes.wstring_at(pointer)
+                finally:
+                    kernel.GlobalUnlock(handle)
+            finally:
+                user.CloseClipboard()
+        return ""
+
+    def resize_window(self, bounds: dict | None = None) -> dict | None:
+        """Frameless pencerede kenar tutamaçlarıyla boyutlandırır / mevcut bounds döner."""
+        window = self._window
+        if window is None or not getattr(window, "native", None):
+            return None
+
+        import json
+
+        from System import Func, String
+        from System.Drawing import Rectangle
+        from System.Windows.Forms import FormWindowState
+
+        native = window.native
+
+        def on_ui_thread() -> str:
+            maximized = native.WindowState == FormWindowState.Maximized
+            if bounds is not None and not maximized:
+                width = max(
+                    native.MinimumSize.Width,
+                    min(16384, int(bounds["width"])),
+                )
+                height = max(
+                    native.MinimumSize.Height,
+                    min(16384, int(bounds["height"])),
+                )
+                native.Bounds = Rectangle(
+                    int(bounds["x"]),
+                    int(bounds["y"]),
+                    width,
+                    height,
+                )
+            return json.dumps(
+                {
+                    "x": native.Left,
+                    "y": native.Top,
+                    "width": native.Width,
+                    "height": native.Height,
+                    "minWidth": native.MinimumSize.Width,
+                    "minHeight": native.MinimumSize.Height,
+                    "maximized": maximized,
+                }
+            )
+
+        return json.loads(str(native.Invoke(Func[String](on_ui_thread))))
+
 
 def resource_paths() -> list[Path]:
     """Exe, _MEIPASS ve geliştirme köklerini döndürür."""
@@ -172,6 +253,7 @@ def main() -> None:
         frameless=True,
         easy_drag=False,
         shadow=True,
+        resizable=True,
     )
     api.bind_window(window)
     # private_mode=True (varsayılan) YouTube embed'i WebView2'de boş bırakabiliyor

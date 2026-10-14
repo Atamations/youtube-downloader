@@ -53,14 +53,6 @@
         radial-gradient(900px 500px at 90% 0%, rgba(249, 115, 22, 0.10), transparent 50%),
         #06080f;
     }
-    .film-edge {
-      background-image: repeating-linear-gradient(
-        to bottom,
-        #06080f 0 10px,
-        #22d3ee 10px 14px,
-        #06080f 14px 28px
-      );
-    }
     #yt-host, #yt-host iframe { width: 100%; height: 100%; }
     #yt-host iframe { border: 0; }
     .checker {
@@ -198,14 +190,14 @@
 
   <div class="flex-1 min-h-0 overflow-y-auto">
   <div class="min-h-full flex">
-    <aside class="film-edge w-3 shrink-0 hidden sm:block" aria-hidden="true"></aside>
+
 
     <div class="flex-1 flex flex-col">
       <header class="border-b border-white/5 bg-studio-900/80 backdrop-blur-xl px-5 lg:px-8 py-4 flex items-center justify-between gap-4">
         <div class="flex items-center gap-3.5">
           <div class="h-11 w-11 rounded-xl bg-gold text-studio-950 grid place-items-center font-display text-lg font-bold tracking-tight shadow-glow">A</div>
           <div>
-            <p class="font-display text-lg leading-none tracking-[0.08em] text-studio-300 font-semibold">Atamation</p>
+            <p class="font-display text-lg leading-none tracking-[0.08em] text-studio-300 font-semibold">Atamation<span class="release-badge">1.1</span></p>
             <p class="text-[10px] tracking-[0.22em] uppercase text-studio-500 mt-1.5">Media Downloader</p>
           </div>
         </div>
@@ -395,7 +387,7 @@
       <div class="runner-toolbar">
         <div>
           <p class="runner-kicker">Hidden channel</p>
-          <h2 id="runner-title">Timeline Runner</h2>
+          <h2 id="runner-title">Arkanoid</h2>
         </div>
         <button id="runner-close" class="runner-close" type="button" aria-label="Oyunu kapat">
           <svg viewBox="0 0 12 12" width="12" height="12" fill="none" aria-hidden="true">
@@ -404,9 +396,9 @@
         </button>
       </div>
       <div class="runner-stage">
-        <canvas id="runner-canvas" width="880" height="260" aria-label="Timeline Runner oyunu"></canvas>
+        <canvas id="runner-canvas" width="880" height="420" aria-label="Arkanoid: fare veya sağ ve sol oklar ile raketi hareket ettir"></canvas>
       </div>
-      <p class="runner-hint">↑ zıpla · ESC veya × ile ana ekrana dön</p>
+      <p class="runner-hint">← → / FARE · RAKET &nbsp; ↑ / SPACE · BAŞLAT &nbsp; P · DURAKLAT &nbsp; ESC · KAPAT</p>
     </div>
   </div>
 
